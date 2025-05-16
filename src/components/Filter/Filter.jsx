@@ -1,30 +1,26 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { setFilter } from '../redux/filterSlice.js';
+import { setFilter } from '../redux/filterSlice';
 
-const FilterButtons = () => {
+const Filter = () => {
   const dispatch = useDispatch();
   const currentFilter = useSelector(state => state.filter);
-
-  const handleFilterChange = filter => {
-    dispatch(setFilter(filter));
-  };
 
   return (
     <div>
       <button
-        onClick={() => handleFilterChange('all')}
+        onClick={() => dispatch(setFilter('all'))}
         disabled={currentFilter === 'all'}
       >
-        Всі
+        Усі
       </button>
       <button
-        onClick={() => handleFilterChange('active')}
+        onClick={() => dispatch(setFilter('active'))}
         disabled={currentFilter === 'active'}
       >
         Активні
       </button>
       <button
-        onClick={() => handleFilterChange('completed')}
+        onClick={() => dispatch(setFilter('completed'))}
         disabled={currentFilter === 'completed'}
       >
         Виконані
@@ -33,4 +29,4 @@ const FilterButtons = () => {
   );
 };
 
-export default FilterButtons;
+export default Filter;

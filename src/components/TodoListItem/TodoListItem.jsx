@@ -1,21 +1,26 @@
-import { RiDeleteBinLine, RiEdit2Line } from 'react-icons/ri';
-import Text from '../Text/Text';
-import style from './TodoListItem.module.css';
-const TodoListItem = ({ text, id, count, onDelete, todo }) => {
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { toggleTask, deleteTask } from '../redux/tasksSlice';
+
+const TodoListItem = ({ id, text, completed }) => {
+  const dispatch = useDispatch();
+
+  const handleToggle = () => {
+    dispatch(toggleTask(id));
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteTask(id));
+  };
+
   return (
-    <div className={style.box}>
-      <Text textAlign="center" marginBottom="20">
-        TODO #{count}
-      </Text>
-      <Text>{text}</Text>
-      <button
-        className={style.deleteButton}
-        type="button"
-        onClick={() => onDelete(id)}
-      >
-        <RiDeleteBinLine size={24} />
+    <li style={{ textDecoration: completed ? 'line-through' : 'none' }}>
+      {text}
+      <button onClick={handleToggle}>
+        {completed ? 'Відмінити' : 'Виконано'}
       </button>
-    </div>
+      <button onClick={handleDelete}>Видалити</button>
+    </li>
   );
 };
 

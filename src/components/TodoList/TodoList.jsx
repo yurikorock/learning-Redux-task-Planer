@@ -1,21 +1,23 @@
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { toggleTask } from '../redux/tasksSlice';
+import { selectFilteredTasks } from '../redux/selectors';
 import TodoListItem from '../TodoListItem/TodoListItem';
-import Grid from '../Grid/Grid';
-import GridItem from '../GridItem/GridItem';
 
-const TodoList = ({ todos, onDelete }) => {
+const TodoList = () => {
+  const tasks = useSelector(state => state.tasks);
+
   return (
-    <Grid>
-      {todos.map((todo, index) => (
-        <GridItem key={todo.id}>
-          <TodoListItem
-            text={todo.text}
-            id={todo.id}
-            count={index + 1}
-            onDelete={onDelete}
-          />
-        </GridItem>
+    <ul>
+      {tasks.map(task => (
+        <TodoListItem
+          key={task.id}
+          id={task.id}
+          text={task.text}
+          completed={task.completed}
+        />
       ))}
-    </Grid>
+    </ul>
   );
 };
 
